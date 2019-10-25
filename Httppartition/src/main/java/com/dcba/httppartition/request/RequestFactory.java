@@ -1,7 +1,9 @@
 package com.dcba.httppartition.request;
 
+import com.dcba.httppartition.http.Body;
 import com.dcba.httppartition.http.GET;
 import com.dcba.httppartition.http.POST;
+import com.dcba.httppartition.http.Param;
 import com.dcba.httppartition.http.Query;
 
 import java.lang.annotation.Annotation;
@@ -30,10 +32,10 @@ public class RequestFactory {
             Object obj = args[i];
             Annotation[] anarr = parameterAnnotationsArray[i];
             for (Annotation an : anarr) {
-                if (an instanceof Query) {
-                    String value = ((Query) an).value();
+                if (an instanceof Param) {
+                    String value = ((Param) an).value();
                     map.put(value, obj);
-                } else if (an instanceof POST) {
+                } else if (an instanceof Body) {
 //                    value = ((POST) an).value();
                 }
             }

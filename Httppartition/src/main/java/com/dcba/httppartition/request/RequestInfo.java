@@ -6,7 +6,7 @@ public class RequestInfo {
     public static final String GET = "GET";
     public static final String POST = "POST";
     private String httpType;
-    private String url_firsthalf;//url前半截
+    private String url_firsthalf;//url前半截,服务器地址
     private String url_secondhalf;//url后半截
     private Map<String, Object> params;
 

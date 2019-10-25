@@ -1,4 +1,4 @@
-package com.dcba.httppartition;
+package com.dcba.httppartition.test;
 
 import com.dcba.httppartition.request.RequestInfo;
 import com.dcba.httppartition.request.RequestResult;

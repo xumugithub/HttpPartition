@@ -1,1 +1,2 @@
-include ':app', ':Httppartition'
+include ':app'
+include ':Httppartition'

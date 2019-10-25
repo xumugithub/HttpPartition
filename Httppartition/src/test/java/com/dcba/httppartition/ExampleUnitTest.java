@@ -1,6 +1,10 @@
 package com.dcba.httppartition;
 
 import com.dcba.httppartition.separate.HttpPartition;
+import com.dcba.httppartition.test.B;
+import com.dcba.httppartition.test.BaseConverter;
+import com.dcba.httppartition.test.HConverter1;
+import com.dcba.httppartition.test.MyHttpClient;
 
 import org.junit.Test;
 
@@ -15,7 +19,11 @@ public class ExampleUnitTest {
         HttpPartition httpPartition = new HttpPartition.Builder().baseUrl("http://127.0.0.1")
                 .setHttpClient(new MyHttpClient()).build();
         httpPartition.setBaseConverter(new BaseConverter());
-        String json = httpPartition.create(B.class).getH("张三", "15").execute().body();
-        System.out.println("请求返回的数据:"+json);
+        B b = httpPartition.create(B.class);
+        String json = b.getH("张三", "15").execute().body();
+        System.out.println("请求返回的数据:" + json);
+        System.out.println("再次发出请求。。。");
+        String json2 = b.getH("李四", "17").setConverter1(new HConverter1()).execute().body();
+        System.out.println("请求返回的数据:" + json2);
     }
 }

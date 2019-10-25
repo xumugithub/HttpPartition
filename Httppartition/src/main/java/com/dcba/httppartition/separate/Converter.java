@@ -1,8 +1,8 @@
 package com.dcba.httppartition.separate;
 
 
-public interface Converter {
+public interface Converter<T> {
 
-    public Object convert(Object value);
+    public T convert(Object value);
 
 }

@@ -6,20 +6,21 @@ public class ResponseConverter<T> {
     private Converter baseConverter;
     private Converter converter1;
     private Converter converter2;
-    private Converter converter3;
+    private Converter fullyCustomizeConverter;//完全自定义解析
 
     public Response<T> convert(RequestResult requestResult) {
-        if (baseConverter != null) {
-            requestResult.setResult(baseConverter.convert(requestResult.getResult()));
-        }
-        if (converter1 != null) {
-            requestResult.setResult(converter1.convert(requestResult.getResult()));
-        }
-        if (converter2 != null) {
-            requestResult.setResult(converter2.convert(requestResult.getResult()));
-        }
-        if (converter3 != null) {
-            requestResult.setResult(converter3.convert(requestResult.getResult()));
+        if (fullyCustomizeConverter != null) {//完全自定义解析
+            requestResult.setResult(fullyCustomizeConverter.convert(requestResult.getResult()));
+        } else {//其他的解析方式
+            if (baseConverter != null) {
+                requestResult.setResult(baseConverter.convert(requestResult.getResult()));
+            }
+            if (converter1 != null) {
+                requestResult.setResult(converter1.convert(requestResult.getResult()));
+            }
+            if (converter2 != null) {
+                requestResult.setResult(converter2.convert(requestResult.getResult()));
+            }
         }
         Response response = new Response(requestResult.getCode(), (T) requestResult.getResult());
         return response;
@@ -37,7 +38,7 @@ public class ResponseConverter<T> {
         this.converter2 = converter2;
     }
 
-    public void setConverter3(Converter converter3) {
-        this.converter3 = converter3;
+    public void setFullyCustomizeConverter(Converter fullyCustomizeConverter) {
+        this.fullyCustomizeConverter = fullyCustomizeConverter;
     }
 }

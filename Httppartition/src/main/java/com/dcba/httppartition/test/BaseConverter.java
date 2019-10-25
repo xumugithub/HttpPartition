@@ -1,22 +1,22 @@
-package com.dcba.httppartition;
+package com.dcba.httppartition.test;
 
 import com.dcba.httppartition.separate.Converter;
 
 
-public class BaseConverter implements Converter {
+public class BaseConverter<T> implements Converter<T> {
     @Override
-    public Object convert(Object value) {
+    public T convert(Object value) {
         if (value instanceof String) {
             String json = (String) value;
-            json=json.substring(json.indexOf("data"),json.length()-1);
+            json = json.substring(json.indexOf("data"), json.length() - 1);
             /*try {
                 JSONObject jo = new JSONObject(json);
                 json = jo.getString("data");
             } catch (JSONException e) {
                 e.printStackTrace();
             }*/
-            return json;
+            return (T) json;
         }
-        return value;
+        return (T) value;
     }
 }

@@ -1,16 +1,15 @@
 package com.dcba.httppartition.request;
 
+import com.dcba.httppartition.separate.Converter;
 import com.dcba.httppartition.separate.HttpClient;
 import com.dcba.httppartition.separate.Response;
 import com.dcba.httppartition.separate.ResponseConverter;
-
-import java.text.ParseException;
 
 
 public class HttpCall<T> implements Call<T> {
     private HttpClient httpClient;
     private RequestInfo requestInfo;
-    private ResponseConverter responseConverter;
+    private ResponseConverter<T> responseConverter;
 
     public HttpCall(HttpClient httpClient, RequestInfo requestInfo, ResponseConverter responseConverter) {
         this.httpClient = httpClient;
@@ -22,6 +21,24 @@ public class HttpCall<T> implements Call<T> {
     public Response execute() {
         RequestResult requestResult = httpClient.sendRequest(requestInfo);
         return responseConverter.convert(requestResult);
+    }
+
+    @Override
+    public Call<T> setConverter1(Converter converter) {
+        responseConverter.setConverter1(converter);
+        return this;
+    }
+
+    @Override
+    public Call<T> setConverter2(Converter converter) {
+        responseConverter.setConverter2(converter);
+        return this;
+    }
+
+    @Override
+    public Call<T> setFullyCustomizeConverter(Converter converter) {
+        responseConverter.setFullyCustomizeConverter(converter);
+        return this;
     }
 
     @Override
