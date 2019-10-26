@@ -1,19 +1,22 @@
 package com.dcba.httppartition.request;
 
 public class RequestResult {
-    private String code;
+    private int code;
     private Object result;
 
-    public RequestResult(String code, Object result) {
+    public RequestResult() {
+    }
+
+    public RequestResult(int code, Object result) {
         this.code = code;
         this.result = result;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 

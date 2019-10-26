@@ -4,6 +4,13 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.dcba.httppartition.request.Callback;
+import com.dcba.httppartition.separate.HttpPartition;
+import com.dcba.httppartition.separate.Response;
+import com.dcba.httppartition.test.B;
+import com.dcba.httppartition.test.BaseConverter;
+import com.dcba.httppartition.test.MyHttpClient;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -22,5 +29,6 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.dcba.httppartition.test", appContext.getPackageName());
+
     }
 }

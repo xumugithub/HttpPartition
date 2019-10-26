@@ -4,6 +4,7 @@ import com.dcba.httppartition.separate.Converter;
 import com.dcba.httppartition.separate.HttpClient;
 import com.dcba.httppartition.separate.Response;
 import com.dcba.httppartition.separate.ResponseConverter;
+import com.dcba.httppartition.separate.ThreadFactory;
 
 
 public class HttpCall<T> implements Call<T> {
@@ -18,7 +19,7 @@ public class HttpCall<T> implements Call<T> {
     }
 
     @Override
-    public Response execute() {
+    public Response<T> execute() {
         RequestResult requestResult = httpClient.sendRequest(requestInfo);
         return responseConverter.convert(requestResult);
     }
@@ -42,8 +43,24 @@ public class HttpCall<T> implements Call<T> {
     }
 
     @Override
-    public void enqueue(Callback callback) {
-
+    public void enqueue(final Callback<T> callback) {
+        ThreadFactory.get().execute(new Runnable() {
+            @Override
+            public void run() {
+                final Response response = execute();
+                ThreadFactory.get().runInMainThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int code = response.code();
+                        if (code >= 200 && code < 300) {
+                            callback.onResponse(response);
+                        } else {
+                            callback.onFailure(response);
+                        }
+                    }
+                });
+            }
+        });
     }
 
     @Override

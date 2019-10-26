@@ -1,6 +1,8 @@
 package com.dcba.httppartition;
 
+import com.dcba.httppartition.request.Callback;
 import com.dcba.httppartition.separate.HttpPartition;
+import com.dcba.httppartition.separate.Response;
 import com.dcba.httppartition.test.B;
 import com.dcba.httppartition.test.BaseConverter;
 import com.dcba.httppartition.test.HConverter1;
@@ -20,10 +22,24 @@ public class ExampleUnitTest {
                 .setHttpClient(new MyHttpClient()).build();
         httpPartition.setBaseConverter(new BaseConverter());
         B b = httpPartition.create(B.class);
-        String json = b.getH("张三", "15").execute().body();
+        /*String json = b.getH("张三", "15").execute().body();
         System.out.println("请求返回的数据:" + json);
-        System.out.println("再次发出请求。。。");
-        String json2 = b.getH("李四", "17").setConverter1(new HConverter1()).execute().body();
-        System.out.println("请求返回的数据:" + json2);
+        System.out.println("再次发出请求。。。");*/
+//        String json2 = b.getH("李四", "17").setConverter1(new HConverter1()).execute().body();
+//        System.out.println("请求返回的数据:" + json2);
+
+        b.getH("奇拉拉", "20").enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Response<String> response) {
+                System.out.println("奇拉拉返回:" + response.body());
+            }
+
+            @Override
+            public void onFailure(Response<String> response) {
+
+            }
+        });
+
+        System.out.println("test执行完s");
     }
 }

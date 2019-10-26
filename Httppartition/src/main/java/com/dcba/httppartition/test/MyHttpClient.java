@@ -25,6 +25,6 @@ public class MyHttpClient implements HttpClient {
         }
 
         String json = "{\"code\":\"0\",\"data\":\"[{\"xm\":\"小明\",\"nl\":28}]\"}";
-        return new RequestResult("200", json);
+        return new RequestResult(200, json);
     }
 }

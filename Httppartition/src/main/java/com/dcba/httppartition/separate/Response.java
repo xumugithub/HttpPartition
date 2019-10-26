@@ -1,15 +1,15 @@
 package com.dcba.httppartition.separate;
 
 public class Response<T> {
-    private String code;
+    private int code;
     private T body;
 
-    public Response(String code, T body) {
+    public Response(int code, T body) {
         this.code = code;
         this.body = body;
     }
 
-    public String code() {
+    public int code() {
         return code;
     }
 
